@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System.Web.Http;
+using WebApiWithGpb.Core;
 
 namespace WebApiWithGpb
 {
