@@ -16,26 +16,19 @@ namespace WebApiWithGpb
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.Ignore("{resource}.axd/{*pathInfo}");
-            // home route
-            routes.MapHttpRoute(
-                "Home", // Route name 
-                "api", // URL with parameters 
-                new { controller = "Home" } // Parameter defaults 
-            );
-            
-            routes.MapHttpRoute(
+            var config = GlobalConfiguration.Configuration;
+            config.Routes.MapHttpRoute(
+                name: "ControllerWithExt",
+                routeTemplate: "api/{controller}.{ext}");
+            config.Routes.MapHttpRoute(
+                name: "IdWithExt",
+                routeTemplate: "api/{controller}/{id}.{ext}");
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            routes.MapHttpRoute(
-                name: "Api UriPathExtension",
-                routeTemplate: "api/{controller}.{ext}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-
-            //routes.MapHttpRoute("bag", "api/bag/{*path}");
         }
 
 
@@ -43,8 +36,9 @@ namespace WebApiWithGpb
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            RegisterRoutes(RouteTable.Routes);
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.MediaTypeMappings.Add(new UriPathExtensionMapping("json", "application/json"));
+
+            RegisterRoutes(RouteTable.Routes);
 
             GlobalConfiguration.Configuration.Formatters.Add(new ProtoBufFormatter());
             GlobalConfiguration.Configuration.Formatters.Add(new CsvFormatter());
