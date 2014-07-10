@@ -21,6 +21,7 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <SilverlightApplicationList>{0A0E7DD7-DD96-4368-9886-74E832A8DBB0}|..\WebApiWithGbp.Silverlight\WebApiWithGbp.Silverlight.csproj|ClientBin|False</SilverlightApplicationList>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -92,8 +93,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClientBin\WebApiWithGbp.Silverlight.xap" />
     <Content Include="Global.asax" />
+    <Content Include="Silverlight.js" />
     <Content Include="Web.config" />
+    <Content Include="WebApiWithGbp.SilverlightTestPage.aspx" />
+    <Content Include="WebApiWithGbp.SilverlightTestPage.html" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvFormatter.cs" />

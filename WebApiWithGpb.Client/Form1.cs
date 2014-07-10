@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Windows.Forms;
-using ProtoBuf;
 using WebApiWithGpb.Core;
 
 namespace WebApiWithGpb.Client
@@ -18,14 +13,11 @@ namespace WebApiWithGpb.Client
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-protobuf"));
-            var stream = await client.GetStreamAsync("http://localhost:53833/api/persons");
-            
-            // try to deserialize
-            var result = Serializer.Deserialize<List<Person>>(stream);
-
-            MessageBox.Show("number of persons: " +  result.Count().ToString());
+            var url = new Uri("http://localhost:53833/api/");
+            var client = new SuperClient(url, "username", "password");
+            var persons = await client.GetPersons();
+            var p = persons.Count;
+            MessageBox.Show("number of persons: " + p);
         }
     }
 }
